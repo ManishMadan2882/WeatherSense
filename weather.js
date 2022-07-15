@@ -14,17 +14,7 @@ const loc=document.querySelector('#location span');
 const icon=document.getElementById('icon');
 const weather=document.getElementById('weather');
 const dtInfo = document.getElementById('dtInfo');
-
 const stat = document.getElementById('stat');
-var week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-var year = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
-function format(n){
-   if(n<=9)
-   return "0"+n.toString();
-   else return n.toString();
-}
-
-
 var limit=5;
 var APIkey='bf8d15a80c89aa4f4c82ad6cbb3f5ac5';
 navigator.geolocation.getCurrentPosition((position)=>{
@@ -32,20 +22,17 @@ navigator.geolocation.getCurrentPosition((position)=>{
     var lon=position.coords.longitude;
  updateDetails(lat,lon);
 });
-
 async function getCoords(cityName){
   const limit=5;  
   const pos = {latitude:0, longitude:0};
   const api_url=`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${APIkey}`
   await fetch(api_url).then(res=>res.json()).then(data=>{
-   // console.log(data[0].lat,data[0].lon);
    pos.latitude=data[0].lat;
    pos.longitude=data[0].lon;
    return pos;
     });
 return pos;
 }
-
 document.getElementById('button-addon2').addEventListener('click',()=>{
     var coords=getCoords(input_text.value);
     getCoords(input_text.value).then((data)=>{
@@ -54,14 +41,14 @@ document.getElementById('button-addon2').addEventListener('click',()=>{
     updateDetails(lat,lon);
     });
 });
-function updateDetails(lat,lon){
+async function updateDetails(lat,lon){
    const weatherAPI=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}`;
    const geoAPI=`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIkey}`;
-    fetch(geoAPI).then(res=>res.json()).then(data =>{
+    await fetch(geoAPI).then(res=>res.json()).then(data =>{
     console.log(data[0].name,data[0].country);  
     loc.innerHTML=`${data[0].name}, ${data[0].country}`;
- });
-   fetch(weatherAPI).then(res=>res.json()).then(data=>{
+   });
+    await fetch(weatherAPI).then(res=>res.json()).then(data=>{
      
       icon.src=`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
       dt.innerText=new Date(new Date(1000*data.current.dt + data.timezone_offset*1000).getTime()).toUTCString().slice(0,22);
@@ -85,7 +72,6 @@ function updateDetails(lat,lon){
          min.innerHTML=(data.daily[index].temp.min -273.15).toFixed(1);
         
       }
-   });
-   
+   });  
 }
 //https://github.com/ManishMadan2882
