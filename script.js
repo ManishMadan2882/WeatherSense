@@ -49,7 +49,15 @@ async function updateDetails(lat,lon){
     loc.innerHTML=`${data[0].name}, ${data[0].country}`;
    });
     await fetch(weatherAPI).then(res=>res.json()).then(data=>{
-     
+      try
+      {
+         alert(data.alerts[0].description);
+
+      }
+      catch(err){
+          console.log("NO WEATHER ALERTS IN THIS AREA");
+      }
+        
       icon.src=`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
       dt.innerText=new Date(new Date(1000*data.current.dt + data.timezone_offset*1000).getTime()).toUTCString().slice(0,22);
       stat.innerText=data.current.weather[0].main;
