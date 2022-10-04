@@ -1,0 +1,64 @@
+body {
+    background-image: url('../imgs/mount.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    margin: 0;
+}
+
+@media screen and (max-width: 1000px) {
+    #status {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #temperature {
+        font-size: 3rem;
+    }
+
+    #feels-like {
+        font-size: 1.5rem;
+    }
+
+    #searchbar {
+        float: none;
+        margin-top: 0.625rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        width: 100%;
+    }
+
+    #forecast {
+        column-gap: 10rem;
+    }
+
+    #details {
+        margin-top: unset;
+        margin-right: auto;
+        margin-left: auto;
+        justify-content: space-evenly;
+    }
+
+    #details table {
+        margin-top: 20px;
+    }
+
+    #location span {
+        font-size: 1.1rem;
+    }
+
+    #location {
+        width: 100%;
+        padding: 0.25rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-image: url('../imgs/night.jpg');
+    }
+}
