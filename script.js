@@ -15,6 +15,26 @@ const icon=document.getElementById('icon');
 const weather=document.getElementById('weather');
 const dtInfo = document.getElementById('dtInfo');
 const stat = document.getElementById('stat');
+const darkBtn = document.querySelector(".dark-btn");
+const body = document.getElementById("main-body");
+const forcast = document.getElementById("table");
+
+   darkBtn.addEventListener("click" , ()=>{
+      if(darkBtn.checked){
+         body.classList.remove("light");
+         body.classList.add("dark");
+         loc.classList.add("dark-theme");
+         
+      }
+      else{
+         body.classList.remove("dark");
+         body.classList.add("light");
+         loc.classList.remove("dark-theme");
+      }
+         
+     
+   })
+
 var limit=5;
 var APIkey='bf8d15a80c89aa4f4c82ad6cbb3f5ac5';
 navigator.geolocation.getCurrentPosition((position)=>{
@@ -33,6 +53,20 @@ async function getCoords(cityName){
     });
 return pos;
 }
+
+
+document.addEventListener('keyup',(event)=>{
+   if(event.key === 'Enter' ){
+      var coords=getCoords(input_text.value);
+   getCoords(input_text.value).then((data)=>{
+   lat=data.latitude;
+   lon=data.longitude;
+   updateDetails(lat,lon);
+   });
+   }
+   
+});
+
 document.getElementById('button-addon2').addEventListener('click',()=>{
     var coords=getCoords(input_text.value);
     getCoords(input_text.value).then((data)=>{
