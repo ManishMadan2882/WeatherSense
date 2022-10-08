@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 const currentDetails="https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid={API key}";
 const currTime = document.querySelector('#time');
 const ampm  = document.getElementById('#ampm');
@@ -117,7 +115,7 @@ async function updateDetails(lat,lon){
       }
    });  
 }
-=======
+
 
 const currentDetails="https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid={API key}";
 const currTime = document.querySelector('#time');
@@ -222,5 +220,4 @@ async function updateDetails(lat,lon){
       }
    });  
 }
->>>>>>> e221508554ee15b9d8c0e50801643b5163abcc9d
 //https://github.com/ManishMadan2882
