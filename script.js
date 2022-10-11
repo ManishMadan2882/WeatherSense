@@ -17,6 +17,8 @@ const stat = document.getElementById('stat');
 const darkBtn = document.querySelector(".dark-btn");
 const body = document.getElementById("main-body");
 const forcast = document.getElementById("table");
+const aqi=document.getElementById("aqi");
+const quality=document.getElementById("quality");
 
    darkBtn.addEventListener("click" , ()=>{
       if(darkBtn.checked){
@@ -77,6 +79,7 @@ document.getElementById('button-addon2').addEventListener('click',()=>{
 async function updateDetails(lat,lon){
    const weatherAPI=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}`;
    const geoAPI=`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIkey}`;
+   const aqiAPI = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${APIkey}`;
     await fetch(geoAPI).then(res=>res.json()).then(data =>{
     console.log(data[0].name,data[0].country);  
     loc.innerHTML=`${data[0].name}, ${data[0].country}`;
@@ -113,7 +116,34 @@ async function updateDetails(lat,lon){
          min.innerHTML=(data.daily[index].temp.min -273.15).toFixed(1);
         
       }
-   });  
+   });
+   
+    await fetch(aqiAPI).then(res=>res.json()).then(data=>{
+      try{
+         aqi.innerText=data.list[0].main.aqi;
+      switch(data.list[0].main.aqi){
+         case 1:
+            quality.innerText = "Good";
+            break;
+         case 2:
+            quality.innerText = "Fair";
+            break;
+         case 3:
+            quality.innerText = "Moderate";
+            break;
+         case 4:
+            quality.innerText = "Poor";
+            break;
+         case 5:
+            quality.innerText = "Very Poor";
+            break;
+      }
+      }
+      catch(err){
+         console.log(err);
+      }
+      
+   });
 }
 
 
